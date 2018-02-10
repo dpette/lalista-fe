@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-between align-items-baseline">
+  <h1>Storico Punti</h1>
+  <button routerLink="../new-point" class="btn btn-primary">Segna</button>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let point of points; let i = index">
+        <strong>{{point.person.name}}</strong> ha detto <strong>{{point.word.name}}</strong>
+
+        <span class="float-right">
+          <button type="button" class="btn btn-link" (click)="onDelete(i)"><fa name="trash"></fa></button>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

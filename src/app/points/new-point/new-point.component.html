@@ -1,0 +1,30 @@
+<h1>Nuovo Punto</h1>
+
+<div class="row mb-3">
+  <div class="col-sm-6">
+    <h4>Segna a: </h4>
+    <ul class="list-group">
+      <button
+        class="list-group-item list-group-item-action"
+        [class.active]="person == selectedPerson"
+        (click)="onClickPerson(i)"
+        *ngFor="let person of peopleService.getPeople(); let i = index">
+        {{person.name}}
+      </button>
+    </ul>
+  </div>
+  <div class="col-sm-6">
+    <h4>la parola:</h4>
+    <ul class="list-group">
+      <button
+        class="list-group-item list-group-item-action"
+        [class.active]="word == selectedWord"
+        (click)="onClickWord(i)"
+        *ngFor="let word of wordsService.getWords(); let i = index">
+        {{word.name}}
+      </button>
+    </ul>
+  </div>
+</div>
+
+<button (click)="onSubmit()" class="btn btn-primary float-right">Segna!</button>

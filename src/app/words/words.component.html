@@ -1,0 +1,19 @@
+<h1>Parole</h1>
+
+<form (ngSubmit)="onSubmit(name)" #insertForm>
+  <div class="d-flex form-group">
+    <input type="text" class="form-control" id="name" #name placeholder="Aggiungi una parola a LaLista">
+    <button  class="btn btn-primary">Aggiungi</button>
+  </div>
+</form>
+
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let word of words; let i = index">
+    {{word.name}}
+    
+    <span class="float-right">
+      <button type="button" class="btn btn-link" (click)="onDelete(i)"><fa name="trash"></fa></button>
+    </span>
+  </li>
+</ul>

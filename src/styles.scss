@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.list-group-item {
+  .float-right {
+    .btn.btn-link {
+      padding: 0 10px;
+      color: #212529;
+    }
+  }
+}
