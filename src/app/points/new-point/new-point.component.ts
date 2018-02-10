@@ -32,12 +32,10 @@ export class NewPointComponent implements OnInit {
 
   onClickWord(i: number) {
     this.selectedWord = this.wordsService.getWord(i);
-    console.log(this.selectedWord);
   }
 
   onClickPerson(i: number) {
     this.selectedPerson = this.peopleService.getPerson(i);
-    console.log(this.selectedPerson);
   }
 
   onSubmit() {

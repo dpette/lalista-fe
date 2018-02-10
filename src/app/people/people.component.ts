@@ -11,14 +11,14 @@ import { Subscription } from 'rxjs/Subscription';
 export class PeopleComponent implements OnInit, OnDestroy {
 
   people: Person [];
-  peopleSubscription: Subscription;
+  peopleUpdated: Subscription;
 
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.people = this.peopleService.getPeople();
 
-    this.peopleSubscription = this.peopleService.peopleFetched.subscribe(
+    this.peopleUpdated = this.peopleService.peopleFetched.subscribe(
       (people: Person[]) => {
         this.people = people;
       }
@@ -35,7 +35,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.peopleSubscription.unsubscribe();
+    this.peopleUpdated.unsubscribe();
   }
 
 }

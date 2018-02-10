@@ -20,7 +20,12 @@ export class PeopleService {
   }
 
   getPeople(): Person[] {
-    this.fetchPeople();
+    this.http.get(this.baseUrl).subscribe(
+      (people: Person[]) => {
+        this.people = people;
+        this.peopleFetched.next(this.people);
+      }
+    );
     return this.people;
   }
 
@@ -29,9 +34,9 @@ export class PeopleService {
   }
 
   add(person) {
-    this.http.post(this.baseUrl, person).subscribe(
-      (deletedPerson) => {
-        this.people.push(person);
+    this.http.post(this.baseUrl, {person: person}).subscribe(
+      (addedPerson: Person) => {
+        this.people.push(addedPerson);
       }
     );
   }
@@ -47,12 +52,6 @@ export class PeopleService {
   }
 
   private fetchPeople() {
-    this.http.get(this.baseUrl).subscribe(
-      (people: Person[]) => {
-        this.people = people;
-        this.peopleFetched.next(this.people);
-      }
-    );
   }
 
 }

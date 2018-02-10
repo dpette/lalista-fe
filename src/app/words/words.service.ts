@@ -1,17 +1,28 @@
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
+
 import { Word } from './word.model';
 
 @Injectable()
 export class WordsService {
 
+  wordsFetched = new Subject<Word[]> ();
+  baseUrl = 'http://localhost:3000/words';
+
   words = [
-    new Word('parole'),
-    new Word('internet')
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getWords(): Word[] {
+    this.http.get(this.baseUrl).subscribe(
+      (words: Word[]) => {
+        this.words = words;
+        this.wordsFetched.next(words);
+      }
+    );
+
     return this.words;
   }
 
@@ -20,11 +31,21 @@ export class WordsService {
   }
 
   add(word: Word) {
-    this.words.push(word);
+    this.http.post(this.baseUrl, { word: word}).subscribe(
+      (addedWord: Word) => {
+        this.words.push(addedWord);
+      }
+    );
   }
 
   delete(i) {
-    this.words.splice(i, 1);
+    const word = this.words[i];
+
+    this.http.delete(this.baseUrl + '/' + word.id).subscribe(
+      (deletedWord: Word) => {
+        this.words.splice(i, 1);
+      }
+    );
   }
 
 }
