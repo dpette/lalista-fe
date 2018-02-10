@@ -8,7 +8,7 @@
         class="list-group-item list-group-item-action"
         [class.active]="person == selectedPerson"
         (click)="onClickPerson(i)"
-        *ngFor="let person of peopleService.getPeople(); let i = index">
+        *ngFor="let person of people; let i = index">
         {{person.name}}
       </button>
     </ul>
@@ -20,7 +20,7 @@
         class="list-group-item list-group-item-action"
         [class.active]="word == selectedWord"
         (click)="onClickWord(i)"
-        *ngFor="let word of wordsService.getWords(); let i = index">
+        *ngFor="let word of words; let i = index">
         {{word.name}}
       </button>
     </ul>
