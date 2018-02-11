@@ -35,6 +35,7 @@ export class PointsService {
     }).subscribe(
       (point: Point) => {
         this.points.push(point);
+        this.pointsUpdated.next(this.points);
       }
     );
   }
@@ -45,6 +46,7 @@ export class PointsService {
     this.http.delete(this.baseUrl + '/' + point.id).subscribe(
       (deletedPoint: Point) => {
         this.points.splice(i, 1);
+        this.pointsUpdated.next(this.points);
       }
     );
   }

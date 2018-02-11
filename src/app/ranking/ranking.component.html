@@ -1,0 +1,20 @@
+<div class="d-flex mb-3 justify-content-between align-items-baseline">
+  <h1>LALISTA</h1>
+  <button routerLink="../new-point" class="btn btn-primary">Aggiungi punto</button>
+</div>
+
+
+<ul class="list-group">
+  <li
+    class="list-group-item d-flex justify-content-between"
+    *ngFor="let rank of ranking; let i = index">
+    <div>
+      {{ i + 1 }}.
+      {{ rank.person.name }}
+    </div>
+
+    <div>
+      {{ rank.points_count }}
+    </div>
+  </li>
+</ul>

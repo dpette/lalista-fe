@@ -19,21 +19,18 @@ export class WordsService {
     this.http.get(this.baseUrl).subscribe(
       (words: Word[]) => {
         this.words = words;
-        this.wordsFetched.next(words);
+        this.wordsFetched.next(this.words);
       }
     );
 
     return this.words;
   }
 
-  getWord(i: number): Word {
-    return this.words[i];
-  }
-
   add(word: Word) {
     this.http.post(this.baseUrl, { word: word}).subscribe(
       (addedWord: Word) => {
-        this.words.push(addedWord);
+        this.words = [addedWord, ...this.words];
+        this.wordsFetched.next(this.words);
       }
     );
   }
@@ -44,6 +41,7 @@ export class WordsService {
     this.http.delete(this.baseUrl + '/' + word.id).subscribe(
       (deletedWord: Word) => {
         this.words.splice(i, 1);
+        this.wordsFetched.next(this.words);
       }
     );
   }

@@ -1,3 +1,4 @@
+import { Rank } from './ranking/rank.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -10,6 +11,9 @@ export class PeopleService {
   baseUrl = 'http://localhost:3000/people';
 
   peopleFetched = new Subject<Person[]>();
+  rankingFetched = new Subject<Rank[]>();
+
+  ranking = [];
 
   people: Person[] = [
     // new Person('Antonio'),
@@ -29,14 +33,11 @@ export class PeopleService {
     return this.people;
   }
 
-  getPerson(i: number): Person {
-    return this.people[i];
-  }
-
   add(person) {
     this.http.post(this.baseUrl, {person: person}).subscribe(
       (addedPerson: Person) => {
-        this.people.push(addedPerson);
+        this.people = [addedPerson, ...this.people];
+        this.peopleFetched.next(this.people);
       }
     );
   }
@@ -49,6 +50,17 @@ export class PeopleService {
         this.people.splice(i, 1);
       }
     );
+  }
+
+  getRanking() {
+    this.http.get(this.baseUrl + '/ranking').subscribe(
+      (fetchedRanking: Rank[]) => {
+        this.ranking = fetchedRanking;
+        this.rankingFetched.next(this.ranking);
+      }
+    );
+
+    return this.ranking;
   }
 
   private fetchPeople() {
