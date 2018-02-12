@@ -1,3 +1,4 @@
+import { PeopleService } from './../people.service';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -15,7 +16,7 @@ export class PointsService {
 
   pointsUpdated = new Subject<Point[]>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private peopleService: PeopleService) {
   }
 
   getPoints() {
@@ -35,6 +36,7 @@ export class PointsService {
       (addedPoint: Point) => {
         this.points = [addedPoint, ...this.points];
         this.pointsUpdated.next(this.points);
+        this.peopleService.getRanking();
       }
     );
   }

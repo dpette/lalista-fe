@@ -1,3 +1,4 @@
+import { Rank } from './ranking/rank.model';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,6 +14,9 @@ export class PeopleService {
   ];
 
   peopleUpdated = new Subject<Person[]>();
+
+  ranking: Rank[];
+  rankingUpdated = new Subject<Rank[]>();
 
   constructor(private http: HttpClient) {
   }
@@ -44,6 +48,17 @@ export class PeopleService {
         this.peopleUpdated.next(this.people);
       }
     );
+  }
+
+  getRanking() {
+    this.http.get(this.baseUrl + 'ranking').subscribe(
+      (ranking: Rank[]) => {
+        this.ranking = ranking;
+        this.rankingUpdated.next(this.ranking);
+      }
+    );
+
+    return this.ranking;
   }
 
 }

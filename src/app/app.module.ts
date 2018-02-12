@@ -16,6 +16,7 @@ import { NewPointComponent } from './points/new-point/new-point.component';
 import { PointsComponent } from './points/points.component';
 import { PointsService } from './points/points.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RankingComponent } from './ranking/ranking.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     WordsComponent,
     ChartComponent,
     NewPointComponent,
-    PointsComponent
+    PointsComponent,
+    RankingComponent
   ],
   imports: [
     AppRoutingModule,

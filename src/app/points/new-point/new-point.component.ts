@@ -58,7 +58,7 @@ export class NewPointComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.pointsService.add(this.selectedPerson, this.selectedWord);
-    this.router.navigate(['points']);
+    this.router.navigate(['']);
   }
 
   ngOnDestroy() {
