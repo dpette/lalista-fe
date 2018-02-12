@@ -28,14 +28,16 @@ export class NewPointComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.words = this.wordsService.getWords();
+    this.people = this.peopleService.getPeople();
   }
 
   onClickWord(i: number) {
-    this.selectedWord = this.wordsService.getWord(i);
+    this.selectedWord = this.words[i];
   }
 
   onClickPerson(i: number) {
-    this.selectedPerson = this.peopleService.getPerson(i);
+    this.selectedPerson = this.peopleService.people[i];
   }
 
   onSubmit() {

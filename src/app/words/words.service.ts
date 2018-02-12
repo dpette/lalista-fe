@@ -11,41 +11,22 @@ export class WordsService {
   baseUrl = 'http://localhost:3000/words';
 
   words = [
+    new Word('parole'),
+    new Word('cose'),
   ];
 
   constructor(private http: HttpClient) { }
 
   getWords(): Word[] {
-    this.http.get(this.baseUrl).subscribe(
-      (words: Word[]) => {
-        this.words = words;
-        this.wordsFetched.next(words);
-      }
-    );
-
     return this.words;
   }
 
-  getWord(i: number): Word {
-    return this.words[i];
-  }
-
   add(word: Word) {
-    this.http.post(this.baseUrl, { word: word}).subscribe(
-      (addedWord: Word) => {
-        this.words.push(addedWord);
-      }
-    );
+    this.words.push(word);
   }
 
   delete(i) {
-    const word = this.words[i];
-
-    this.http.delete(this.baseUrl + '/' + word.id).subscribe(
-      (deletedWord: Word) => {
-        this.words.splice(i, 1);
-      }
-    );
+    this.words.splice(i, 1);
   }
 
 }

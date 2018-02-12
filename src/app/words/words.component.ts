@@ -13,18 +13,10 @@ export class WordsComponent implements OnInit {
 
   words: Word[];
 
-  wordsUpdated: Subscription;
-
   constructor(private wordsService: WordsService) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
-
-    this.wordsUpdated = this.wordsService.wordsFetched.subscribe(
-      (words: Word[]) => {
-        this.words = words;
-      }
-    );
   }
 
   onSubmit(name: HTMLInputElement) {

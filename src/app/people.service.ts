@@ -9,7 +9,7 @@ export class PeopleService {
 
   baseUrl = 'http://localhost:3000/people';
 
-  peopleFetched = new Subject<Person[]>();
+  peopleUpdated = new Subject<Person[]>();
 
   people: Person[] = [
     // new Person('Antonio'),
@@ -23,20 +23,17 @@ export class PeopleService {
     this.http.get(this.baseUrl).subscribe(
       (people: Person[]) => {
         this.people = people;
-        this.peopleFetched.next(this.people);
+        this.peopleUpdated.next(this.people);
       }
     );
     return this.people;
-  }
-
-  getPerson(i: number): Person {
-    return this.people[i];
   }
 
   add(person) {
     this.http.post(this.baseUrl, {person: person}).subscribe(
       (addedPerson: Person) => {
         this.people.push(addedPerson);
+        this.peopleUpdated.next(this.people);
       }
     );
   }
@@ -47,11 +44,9 @@ export class PeopleService {
     this.http.delete(this.baseUrl + '/' + person.id).subscribe(
       (deletedPerson: Person) => {
         this.people.splice(i, 1);
+        this.peopleUpdated.next(this.people);
       }
     );
-  }
-
-  private fetchPeople() {
   }
 
 }
