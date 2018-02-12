@@ -12,8 +12,6 @@ export class WordsService {
   wordsUpdated = new Subject<Word[]>();
 
   words = [
-    new Word('parole'),
-    new Word('cose'),
   ];
 
   constructor(private http: HttpClient) { }
