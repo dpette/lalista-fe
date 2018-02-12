@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Word } from './word.model';
 import { WordsService } from './words.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-words',
