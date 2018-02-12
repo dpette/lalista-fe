@@ -1,3 +1,5 @@
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 import { Person } from './../../people/person.model';
@@ -12,13 +14,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './new-point.component.html',
   styleUrls: ['./new-point.component.scss']
 })
-export class NewPointComponent implements OnInit {
+export class NewPointComponent implements OnInit, OnDestroy {
 
   selectedPerson: Person;
   selectedWord: Word;
 
   people: Person[];
   words: Word[];
+
+  peopleSubscription: Subscription;
+  wordsSubscription: Subscription;
 
   constructor(
     private pointsService: PointsService,
@@ -30,6 +35,17 @@ export class NewPointComponent implements OnInit {
   ngOnInit() {
     this.words = this.wordsService.getWords();
     this.people = this.peopleService.getPeople();
+
+    this.peopleSubscription = this.peopleService.peopleUpdated.subscribe(
+      (people: Person[]) => {
+        this.people = people;
+      }
+    );
+    this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
+      (words: Word[]) => {
+        this.words = words;
+      }
+    );
   }
 
   onClickWord(i: number) {
@@ -45,4 +61,8 @@ export class NewPointComponent implements OnInit {
     this.router.navigate(['points']);
   }
 
+  ngOnDestroy() {
+    this.peopleSubscription.unsubscribe();
+    this.wordsSubscription.unsubscribe();
+  }
 }
