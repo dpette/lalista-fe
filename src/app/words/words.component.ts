@@ -9,22 +9,14 @@ import { WordsService } from './words.service';
   templateUrl: './words.component.html',
   styleUrls: ['./words.component.scss']
 })
-export class WordsComponent implements OnInit, OnDestroy {
+export class WordsComponent implements OnInit {
 
   words: Word[];
-
-  wordsSubscription: Subscription;
 
   constructor(private wordsService: WordsService) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
-
-    this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
-      (words: Word[]) => {
-        this.words = words;
-      }
-    );
   }
 
   onSubmit(name: HTMLInputElement) {
@@ -36,10 +28,6 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   onDelete(i) {
     this.wordsService.delete(i);
-  }
-
-  ngOnDestroy() {
-    this.wordsSubscription.unsubscribe();
   }
 
 }
