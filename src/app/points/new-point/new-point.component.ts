@@ -37,7 +37,7 @@ export class NewPointComponent implements OnInit {
   }
 
   onClickPerson(i: number) {
-    this.selectedPerson = this.peopleService.people[i];
+    this.selectedPerson = this.people[i];
   }
 
   onSubmit() {
