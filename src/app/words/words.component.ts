@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Word } from './word.model';
 import { WordsService } from './words.service';
@@ -8,14 +9,22 @@ import { WordsService } from './words.service';
   templateUrl: './words.component.html',
   styleUrls: ['./words.component.scss']
 })
-export class WordsComponent implements OnInit {
+export class WordsComponent implements OnInit, OnDestroy {
 
   words: Word[];
+
+  wordsSubscription: Subscription;
 
   constructor(private wordsService: WordsService) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
+
+    this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
+      (words: Word[]) => {
+        this.words = words;
+      }
+    );
   }
 
   onSubmit(name: HTMLInputElement) {
@@ -27,6 +36,10 @@ export class WordsComponent implements OnInit {
 
   onDelete(i) {
     this.wordsService.delete(i);
+  }
+
+  ngOnDestroy() {
+    this.wordsSubscription.unsubscribe();
   }
 
 }
