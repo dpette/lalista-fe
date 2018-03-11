@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Word } from './word.model';
 import { WordsService } from './words.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-words',
   templateUrl: './words.component.html',
   styleUrls: ['./words.component.scss']
 })
-export class WordsComponent implements OnInit {
+export class WordsComponent implements OnInit, OnDestroy {
 
   words: Word[];
 
-  wordsUpdated: Subscription;
+  wordsSubscription: Subscription;
 
   constructor(private wordsService: WordsService) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
 
-    this.wordsUpdated = this.wordsService.wordsFetched.subscribe(
+    this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
       (words: Word[]) => {
         this.words = words;
       }
@@ -36,6 +36,15 @@ export class WordsComponent implements OnInit {
 
   onDelete(i) {
     this.wordsService.delete(i);
+  }
+
+  onArchive(i) {
+    this.wordsService.archive(i);
+  }
+
+
+  ngOnDestroy() {
+    this.wordsSubscription.unsubscribe();
   }
 
 }

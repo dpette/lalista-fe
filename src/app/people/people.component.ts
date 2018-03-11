@@ -1,7 +1,7 @@
+import { Subscription } from 'rxjs/Subscription';
 import { Person } from './person.model';
 import { PeopleService } from './../people.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-people',
@@ -11,14 +11,15 @@ import { Subscription } from 'rxjs/Subscription';
 export class PeopleComponent implements OnInit, OnDestroy {
 
   people: Person [];
-  peopleUpdated: Subscription;
+
+  peopleSubscription: Subscription;
 
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.people = this.peopleService.getPeople();
 
-    this.peopleUpdated = this.peopleService.peopleFetched.subscribe(
+    this.peopleSubscription = this.peopleService.peopleUpdated.subscribe(
       (people: Person[]) => {
         this.people = people;
       }
@@ -26,16 +27,22 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(name: HTMLInputElement) {
-    this.peopleService.add(new Person(name.value));
-    name.value = '';
+    if (name.value !== '') {
+      this.peopleService.add(new Person(name.value));
+      name.value = '';
+    }
   }
 
   onDelete(i) {
     this.peopleService.delete(i);
   }
 
+  onArchive(i) {
+    this.peopleService.archive(i);
+  }
+
   ngOnDestroy() {
-    this.peopleUpdated.unsubscribe();
+    this.peopleSubscription.unsubscribe();
   }
 
 }
