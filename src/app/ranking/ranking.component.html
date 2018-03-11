@@ -1,22 +1,29 @@
-<div class="d-flex justify-content-between align-items-baseline">
+<div class="d-flex justify-content-between align-items-baseline mb-2">
   <h1>Classifica</h1>
-  <button routerLink="../new-point" class="btn btn-primary">Aggiungi punti</button>
+  <button routerLink="../new-point" class="btn btn-primary">Segna</button>
 </div>
 
-<div class="row">
-  <div class="col-sm-6">
-    <ul class="list-group">
-      <li
-        class="list-group-item d-flex justify-content-between"
-        *ngFor="let rank of ranking; let i = index">
-        <div>
-          {{ i + 1 }}.
-          {{ rank.person.name }}
-        </div>
-        <div>
-          {{ rank.pointsCount }}
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
+<ul class="list-group">
+  <li
+    *ngFor="let rank of ranking; let i = index"
+    class="list-group-item"
+    (click)="onClickRank(i)"
+    >
+    <div
+      class="d-flex justify-content-between"
+      [class.first]="i === 0" >
+      <div class="detail">
+        {{i+1}}.
+        {{rank.person.name}}
+      </div>
+      <div class="pointsCount">
+        {{rank.pointsCount}}
+      </div>
+    </div>
+    <div *ngIf="i === 0 && firstRankOpened" class="pt-1 text-center">
+      <button class="btn btn-danger" (click)="onDeclareWinner()">
+          <fa name="trophy"></fa> Incorona
+      </button>
+    </div>
+  </li>
+</ul>

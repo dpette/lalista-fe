@@ -1,6 +1,4 @@
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Person } from './../../people/person.model';
 import { Word } from './../../words/word.model';
@@ -14,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './new-point.component.html',
   styleUrls: ['./new-point.component.scss']
 })
-export class NewPointComponent implements OnInit, OnDestroy {
+export class NewPointComponent implements OnInit {
 
   selectedPerson: Person;
   selectedWord: Word;
@@ -22,30 +20,29 @@ export class NewPointComponent implements OnInit, OnDestroy {
   people: Person[];
   words: Word[];
 
-  peopleSubscription: Subscription;
-  wordsSubscription: Subscription;
-
   constructor(
     private pointsService: PointsService,
     private peopleService: PeopleService,
     private wordsService: WordsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
     this.people = this.peopleService.getPeople();
 
-    this.peopleSubscription = this.peopleService.peopleUpdated.subscribe(
+    this.peopleService.peopleUpdated.subscribe(
       (people: Person[]) => {
         this.people = people;
       }
     );
-    this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
+    this.wordsService.wordsUpdated.subscribe(
       (words: Word[]) => {
         this.words = words;
       }
     );
+
   }
 
   onClickWord(i: number) {
@@ -54,15 +51,15 @@ export class NewPointComponent implements OnInit, OnDestroy {
 
   onClickPerson(i: number) {
     this.selectedPerson = this.people[i];
+    // const element = document.querySelector('#words-selector-list');
+    // if (element) {
+    //   element.scrollIntoView(<any>element);
+    // }
   }
 
   onSubmit() {
     this.pointsService.add(this.selectedPerson, this.selectedWord);
-    this.router.navigate(['']);
+    this.router.navigate(['.']);
   }
 
-  ngOnDestroy() {
-    this.peopleSubscription.unsubscribe();
-    this.wordsSubscription.unsubscribe();
-  }
 }

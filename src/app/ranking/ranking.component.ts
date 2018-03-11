@@ -1,34 +1,37 @@
-import { Subscription } from 'rxjs/Subscription';
 import { Rank } from './rank.model';
 import { PeopleService } from './../people.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ranking',
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.scss']
 })
-export class RankingComponent implements OnInit, OnDestroy {
+export class RankingComponent implements OnInit {
 
+  firstRankOpened = false;
   ranking: Rank[];
-  rankingSubscription: Subscription;
 
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
-    this.ranking = this.peopleService.getRanking();
+    this.peopleService.getRanking();
 
-    this.rankingSubscription = this.peopleService
-      .rankingUpdated.subscribe(
-        (ranking: Rank[]) => {
-          console.log('aggiornaaa!');
-          this.ranking = ranking;
-        }
-      );
+    this.peopleService.rankingUpdated.subscribe(
+      (ranking: Rank[]) => {
+        this.ranking = ranking;
+      }
+    );
   }
 
-  ngOnDestroy() {
-    this.rankingSubscription.unsubscribe();
+  onClickRank(i) {
+    if (i === 0) {
+      this.firstRankOpened = !this.firstRankOpened;
+    }
+  }
+
+  onDeclareWinner() {
+    this.peopleService.declareWinner();
   }
 
 }

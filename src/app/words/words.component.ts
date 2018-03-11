@@ -38,6 +38,11 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.wordsService.delete(i);
   }
 
+  onArchive(i) {
+    this.wordsService.archive(i);
+  }
+
+
   ngOnDestroy() {
     this.wordsSubscription.unsubscribe();
   }

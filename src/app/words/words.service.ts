@@ -1,13 +1,14 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 
-import { Word } from './word.model';
+import { Word, WordJSON } from './word.model';
 
 @Injectable()
 export class WordsService {
 
-  baseUrl = 'http://localhost:3000/words/';
+  baseUrl = environment.apiUrl + 'words/';
 
   wordsUpdated = new Subject<Word[]>();
 
@@ -18,8 +19,10 @@ export class WordsService {
 
   getWords(): Word[] {
     this.http.get(this.baseUrl).subscribe(
-      (words: Word[]) => {
-        this.words = words;
+      (wordsJSON: WordJSON[]) => {
+        this.words = wordsJSON.map((wordJSON: WordJSON) => {
+          return Word.fromJSON(wordJSON);
+        });
         this.wordsUpdated.next(this.words);
       }
     );
@@ -29,8 +32,20 @@ export class WordsService {
 
   add(word: Word) {
     this.http.post(this.baseUrl, {word: word}).subscribe(
-      (addedWord: Word) => {
-        this.words = [addedWord, ...this.words];
+      (wordJSON: WordJSON) => {
+        this.words = [
+          Word.fromJSON(wordJSON),
+          ...this.words
+        ];
+        this.wordsUpdated.next(this.words);
+      }
+    );
+  }
+
+  archive(i) {
+    this.http.put(this.baseUrl + this.words[i].id, {word: {archived: true}}).subscribe(
+      (wordJSON: WordJSON) => {
+        this.words.splice(i, 1);
         this.wordsUpdated.next(this.words);
       }
     );

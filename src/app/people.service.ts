@@ -1,30 +1,34 @@
-import { Rank } from './ranking/rank.model';
+import { environment } from './../environments/environment';
+import { Rank, RankJSON } from './ranking/rank.model';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Person } from './people/person.model';
+import { Person, PersonJSON } from './people/person.model';
 
 @Injectable()
 export class PeopleService {
 
-  baseUrl = 'http://localhost:3000/people/';
+  baseUrl = environment.apiUrl + 'people/';
 
   people: Person[] = [
   ];
 
-  peopleUpdated = new Subject<Person[]>();
-
   ranking: Rank[];
+
+  peopleUpdated = new Subject<Person[]>();
   rankingUpdated = new Subject<Rank[]>();
 
   constructor(private http: HttpClient) {
   }
 
-  getPeople(): Person[] {
-    this.http.get(this.baseUrl).subscribe(
-      (people: Person[]) => {
-        this.people = people;
+  getPeople(archived: boolean = false): Person[] {
+    const query = archived ? '?archived=true' : '';
+    this.http.get(this.baseUrl + query).subscribe(
+      (people: PersonJSON[]) => {
+        this.people = people.map((personJSON: PersonJSON) => {
+          return Person.fromJSON(personJSON);
+        });
         this.peopleUpdated.next(this.people);
       }
     );
@@ -34,12 +38,25 @@ export class PeopleService {
 
   add(person) {
     this.http.post(this.baseUrl, {person: person}).subscribe(
-      (addedPerson: Person) => {
-        this.people = [addedPerson, ...this.people];
+      (personJSON: PersonJSON) => {
+        this.people = [
+          Person.fromJSON(personJSON),
+          ...this.people
+        ];
         this.peopleUpdated.next(this.people);
       }
     );
   }
+
+  archive(i) {
+    this.http.put(this.baseUrl + this.people[i].id, {person: {archived: true}}).subscribe(
+      (wordJSON: PersonJSON) => {
+        this.people.splice(i, 1);
+        this.peopleUpdated.next(this.people);
+      }
+    );
+  }
+
 
   delete(i) {
     this.http.delete(this.baseUrl + this.people[i].id).subscribe(
@@ -52,13 +69,24 @@ export class PeopleService {
 
   getRanking() {
     this.http.get(this.baseUrl + 'ranking').subscribe(
-      (ranking: Rank[]) => {
-        this.ranking = ranking;
+      (ranking: RankJSON[]) => {
+        this.ranking = ranking.map((rankJSON: RankJSON) => {
+          return Rank.fromJSON(rankJSON);
+        });
         this.rankingUpdated.next(this.ranking);
       }
     );
 
     return this.ranking;
+  }
+
+  declareWinner() {
+    this.http.post(environment.apiUrl + 'winners', {}).subscribe(
+      (winner: any) => {
+         this.ranking.shift();
+         this.rankingUpdated.next(this.ranking);
+      }
+    );
   }
 
 }

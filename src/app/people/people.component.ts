@@ -37,6 +37,10 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.peopleService.delete(i);
   }
 
+  onArchive(i) {
+    this.peopleService.archive(i);
+  }
+
   ngOnDestroy() {
     this.peopleSubscription.unsubscribe();
   }

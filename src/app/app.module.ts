@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { PeopleComponent } from './people/people.component';
 import { WordsComponent } from './words/words.component';
-import { ChartComponent } from './chart/chart.component';
 import { NewPointComponent } from './points/new-point/new-point.component';
 import { PointsComponent } from './points/points.component';
 import { PointsService } from './points/points.service';
@@ -25,7 +24,6 @@ import { RankingComponent } from './ranking/ranking.component';
     NavComponent,
     PeopleComponent,
     WordsComponent,
-    ChartComponent,
     NewPointComponent,
     PointsComponent,
     RankingComponent

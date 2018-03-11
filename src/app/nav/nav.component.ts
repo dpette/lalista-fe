@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
-  onToggleCollapse(event) {
+  onToggleCollapse() {
     this.navbarCollapsed = !this.navbarCollapsed;
   }
 
