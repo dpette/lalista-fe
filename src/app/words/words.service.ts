@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 
-import { Word } from './word.model';
+import { Word, WordJSON } from './word.model';
 
 @Injectable()
 export class WordsService {
@@ -18,8 +18,10 @@ export class WordsService {
 
   getWords(): Word[] {
     this.http.get(this.baseUrl).subscribe(
-      (words: Word[]) => {
-        this.words = words;
+      (wordsJSON: WordJSON[]) => {
+        this.words = wordsJSON.map((wordJSON: WordJSON) => {
+          return Word.fromJSON(wordJSON);
+        });
         this.wordsUpdated.next(this.words);
       }
     );
@@ -29,8 +31,11 @@ export class WordsService {
 
   add(word: Word) {
     this.http.post(this.baseUrl, {word: word}).subscribe(
-      (addedWord: Word) => {
-        this.words = [addedWord, ...this.words];
+      (wordJSON: WordJSON) => {
+        this.words = [
+          Word.fromJSON(wordJSON),
+          ...this.words
+        ];
         this.wordsUpdated.next(this.words);
       }
     );

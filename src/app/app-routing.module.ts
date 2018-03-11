@@ -1,3 +1,4 @@
+import { RankingComponent } from './ranking/ranking.component';
 import { NgModule } from '@angular/core';
 import { Routes,  RouterModule } from '@angular/router';
 
@@ -8,7 +9,7 @@ import { PeopleComponent } from './people/people.component';
 import { AppComponent } from './app.component';
 
 const appRoutes: Routes = [
-  // { path: '', component: , pathMatch: 'full' },
+  { path: '', component: RankingComponent, pathMatch: 'full' },
   { path: 'new-point', component: NewPointComponent },
   { path: 'points', component: PointsComponent },
   { path: 'people', component: PeopleComponent },

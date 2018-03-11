@@ -30,6 +30,17 @@ export class NewPointComponent implements OnInit {
   ngOnInit() {
     this.words = this.wordsService.getWords();
     this.people = this.peopleService.getPeople();
+
+    this.peopleService.peopleUpdated.subscribe(
+      (people: Person[]) => {
+        this.people = people;
+      }
+    );
+    this.wordsService.wordsUpdated.subscribe(
+      (words: Word[]) => {
+        this.words = words;
+      }
+    );
   }
 
   onClickWord(i: number) {
@@ -42,7 +53,7 @@ export class NewPointComponent implements OnInit {
 
   onSubmit() {
     this.pointsService.add(this.selectedPerson, this.selectedWord);
-    this.router.navigate(['points']);
+    this.router.navigate(['']);
   }
 
 }

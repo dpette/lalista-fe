@@ -1,8 +1,9 @@
+import { Rank, RankJSON } from './ranking/rank.model';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Person } from './people/person.model';
+import { Person, PersonJSON } from './people/person.model';
 
 @Injectable()
 export class PeopleService {
@@ -12,15 +13,20 @@ export class PeopleService {
   people: Person[] = [
   ];
 
+  ranking: Rank[];
+
   peopleUpdated = new Subject<Person[]>();
+  rankingUpdated = new Subject<Rank[]>();
 
   constructor(private http: HttpClient) {
   }
 
   getPeople(): Person[] {
     this.http.get(this.baseUrl).subscribe(
-      (people: Person[]) => {
-        this.people = people;
+      (people: PersonJSON[]) => {
+        this.people = people.map((personJSON: PersonJSON) => {
+          return Person.fromJSON(personJSON);
+        });
         this.peopleUpdated.next(this.people);
       }
     );
@@ -30,8 +36,11 @@ export class PeopleService {
 
   add(person) {
     this.http.post(this.baseUrl, {person: person}).subscribe(
-      (addedPerson: Person) => {
-        this.people = [addedPerson, ...this.people];
+      (personJSON: PersonJSON) => {
+        this.people = [
+          Person.fromJSON(personJSON),
+          ...this.people
+        ];
         this.peopleUpdated.next(this.people);
       }
     );
@@ -44,6 +53,19 @@ export class PeopleService {
         this.peopleUpdated.next(this.people);
       }
     );
+  }
+
+  getRanking() {
+    this.http.get(this.baseUrl + 'ranking').subscribe(
+      (ranking: RankJSON[]) => {
+        this.ranking = ranking.map((rankJSON: RankJSON) => {
+          return Rank.fromJSON(rankJSON);
+        });
+        this.rankingUpdated.next(this.ranking);
+      }
+    );
+
+    return this.ranking;
   }
 
 }

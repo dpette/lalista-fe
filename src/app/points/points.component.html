@@ -9,7 +9,6 @@
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let point of points; let i = index">
         <strong>{{point.person.name}}</strong> ha detto <strong>{{point.word.name}}</strong>
-
         <span class="float-right">
           <button type="button" class="btn btn-link" (click)="onDelete(i)"><fa name="trash"></fa></button>
         </span>

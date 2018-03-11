@@ -15,6 +15,12 @@ export class PointsComponent implements OnInit {
 
   ngOnInit() {
     this.points = this.pointsService.getPoints();
+
+    this.pointsService.pointsUpdated.subscribe(
+      (points: Point[]) => {
+        this.points = points;
+      }
+    );
   }
 
   onDelete(i: number) {
