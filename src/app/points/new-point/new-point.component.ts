@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Person } from './../../people/person.model';
 import { Word } from './../../words/word.model';
@@ -24,7 +24,8 @@ export class NewPointComponent implements OnInit {
     private pointsService: PointsService,
     private peopleService: PeopleService,
     private wordsService: WordsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -41,6 +42,7 @@ export class NewPointComponent implements OnInit {
         this.words = words;
       }
     );
+
   }
 
   onClickWord(i: number) {
@@ -49,11 +51,15 @@ export class NewPointComponent implements OnInit {
 
   onClickPerson(i: number) {
     this.selectedPerson = this.people[i];
+    // const element = document.querySelector('#words-selector-list');
+    // if (element) {
+    //   element.scrollIntoView(<any>element);
+    // }
   }
 
   onSubmit() {
     this.pointsService.add(this.selectedPerson, this.selectedWord);
-    this.router.navigate(['']);
+    this.router.navigate(['.']);
   }
 
 }

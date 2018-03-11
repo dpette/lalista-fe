@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { PeopleService } from './../people.service';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +11,7 @@ import { Person } from './../people/person.model';
 @Injectable()
 export class PointsService {
 
-  baseUrl = 'http://localhost:3000/points/';
+  baseUrl = environment.apiUrl + 'points/';
 
   points = [];
 

@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingComponent implements OnInit {
 
+  firstRankOpened = false;
   ranking: Rank[];
 
   constructor(private peopleService: PeopleService) { }
@@ -21,6 +22,16 @@ export class RankingComponent implements OnInit {
         this.ranking = ranking;
       }
     );
+  }
+
+  onClickRank(i) {
+    if (i === 0) {
+      this.firstRankOpened = !this.firstRankOpened;
+    }
+  }
+
+  onDeclareWinner() {
+    this.peopleService.declareWinner();
   }
 
 }

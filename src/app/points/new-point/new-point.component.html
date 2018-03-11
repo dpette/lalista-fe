@@ -1,7 +1,7 @@
 <h1>Nuovo Punto</h1>
 
 <div class="row mb-3">
-  <div class="col-sm-6">
+  <div class="col-sm-6 mb-3">
     <h4>Segna a: </h4>
     <ul class="list-group">
       <button
@@ -13,7 +13,7 @@
       </button>
     </ul>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-6" id="words-selector-list" #wordsSelectorList>
     <h4>la parola:</h4>
     <ul class="list-group">
       <button
@@ -27,4 +27,6 @@
   </div>
 </div>
 
-<button (click)="onSubmit()" class="btn btn-primary float-right">Segna!</button>
+<div class="text-right">
+  <button (click)="onSubmit()" class="btn btn-primary">Segna!</button>
+</div>

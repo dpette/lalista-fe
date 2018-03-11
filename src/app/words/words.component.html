@@ -11,9 +11,9 @@
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let word of words; let i = index">
     {{word.name}}
-    
+
     <span class="float-right">
-      <button type="button" class="btn btn-link" (click)="onDelete(i)"><fa name="trash"></fa></button>
+      <button type="button" class="btn btn-link" (click)="onArchive(i)"><fa name="archive"></fa></button>
     </span>
   </li>
 </ul>

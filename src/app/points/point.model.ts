@@ -5,6 +5,7 @@ export interface PointJSON {
   id: number;
   person: PersonJSON;
   word: WordJSON;
+  created_at: string;
 }
 
 export class Point {
@@ -19,6 +20,7 @@ export class Point {
       Word.fromJSON(pointJSON.word),
     );
     point.id = pointJSON.id;
+    point.createdAt = new Date(pointJSON.created_at);
 
     return point;
   }

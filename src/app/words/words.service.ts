@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,7 @@ import { Word, WordJSON } from './word.model';
 @Injectable()
 export class WordsService {
 
-  baseUrl = 'http://localhost:3000/words/';
+  baseUrl = environment.apiUrl + 'words/';
 
   wordsUpdated = new Subject<Word[]>();
 
@@ -36,6 +37,15 @@ export class WordsService {
           Word.fromJSON(wordJSON),
           ...this.words
         ];
+        this.wordsUpdated.next(this.words);
+      }
+    );
+  }
+
+  archive(i) {
+    this.http.put(this.baseUrl + this.words[i].id, {word: {archived: true}}).subscribe(
+      (wordJSON: WordJSON) => {
+        this.words.splice(i, 1);
         this.wordsUpdated.next(this.words);
       }
     );
