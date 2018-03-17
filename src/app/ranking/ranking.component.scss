@@ -2,3 +2,31 @@
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+.cover-image-wrapper {
+  @media screen and (min-width: 768px) {
+    margin-top: 65px;
+  }
+
+  .cover-image-placeholder {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    height: 250px;
+    padding-top: 120px;
+    background-color: #e2e2e2;
+    text-align: center;
+  }
+
+  .cover-image {
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .cover-image-form {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}

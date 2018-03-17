@@ -1,29 +1,48 @@
-<div class="d-flex justify-content-between align-items-baseline mb-2">
-  <h1>Classifica</h1>
-  <button routerLink="../new-point" class="btn btn-primary">Segna</button>
-</div>
 
-<ul class="list-group">
-  <li
-    *ngFor="let rank of ranking; let i = index"
-    class="list-group-item"
-    (click)="onClickRank(i)"
-    >
-    <div
-      class="d-flex justify-content-between"
-      [class.first]="i === 0" >
-      <div class="detail">
-        {{i+1}}.
-        {{rank.person.name}}
+<div class="row">
+  <div class="col-sm-12 col-md-3">
+    <div class="cover-image-wrapper">
+      <div *ngIf="coverImageFetched && !coverImageUrl" class="cover-image-placeholder" (click)="onNewImage()">
+        Clicca per caricare un'immagine
       </div>
-      <div class="pointsCount">
-        {{rank.pointsCount}}
+      <div *ngIf="coverImageUrl" class="text-center">
+        <img [src]="coverImageUrl" alt="" class="cover-image mb-3" (click)="onNewImage()" #coverImage>
       </div>
+      <form (ngSubmit)="onCreateImage(url)" *ngIf="coverImageFormActive" class="cover-image-form">
+        <div class="d-flex form-group">
+          <input type="text" class="form-control" id="coverImageUrl" #url placeholder="Url dell'immagine">
+            <button  class="btn btn-primary"><fa name="plus"></fa></button>
+        </div>
+      </form>
     </div>
-    <div *ngIf="i === 0 && firstRankOpened" class="pt-1 text-center">
-      <button class="btn btn-danger" (click)="onDeclareWinner()">
-          <fa name="trophy"></fa> Incorona
-      </button>
+  </div>
+  <div class="col-sm-12 col-md-9">
+    <div class="d-flex justify-content-between align-items-baseline mb-2">
+      <h1>Classifica</h1>
+      <button routerLink="../new-point" class="btn btn-primary">Segna</button>
     </div>
-  </li>
-</ul>
+    <ul class="list-group">
+      <li
+        *ngFor="let rank of ranking; let i = index"
+        class="list-group-item"
+        (click)="onClickRank(i)">
+        <div
+          class="d-flex justify-content-between"
+          [class.first]="i === 0" >
+          <div class="detail">
+            {{i+1}}.
+            {{rank.person.name}}
+          </div>
+          <div class="pointsCount">
+            {{rank.pointsCount}}
+          </div>
+        </div>
+        <div *ngIf="i === 0 && firstRankOpened" class="pt-1 text-center">
+          <button class="btn btn-danger" (click)="onDeclareWinner()">
+            <fa name="trophy"></fa> Incorona
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

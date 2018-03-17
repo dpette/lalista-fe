@@ -1,3 +1,4 @@
+import { CoverImagesService } from './cover-images/cover-images.service';
 import { WordsService } from './words/words.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -35,7 +36,7 @@ import { RankingComponent } from './ranking/ranking.component';
     AngularFontAwesomeModule,
     FormsModule,
   ],
-  providers: [PeopleService, WordsService, PointsService],
+  providers: [PeopleService, WordsService, PointsService, CoverImagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
