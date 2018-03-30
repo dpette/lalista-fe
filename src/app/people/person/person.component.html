@@ -1,22 +1,22 @@
-<h1 class="mb-3">
-  <div class="d-flex justify-content-between">
-    <div class="rank">
+<div class="mb-3">
+  <div class="row align-items-center">
+    <h1 class="col-3 col-sm-2 rank">
       #{{person.rank}}
-    </div>
-    <div *ngIf="person.rank === 1" class="pt-1 text-center">
+    </h1>
+    <div *ngIf="person.rank === 1" class="col-9 col-sm-4 declare-winner-wrapper">
       <button class="btn btn-danger" (click)="onDeclareWinner()">
         <fa name="trophy"></fa> Incorona
       </button>
     </div>
-    <div class="points">
+    <h4 class="col-sm-6 points">
       {{person.pointsCount}} punti
       <small class="text-muted">({{person.totalPointsCount}} totali)</small>
-    </div>
+    </h4>
   </div>
-</h1>
+</div>
 
 <div class="row">
-  <div class="col-sm-6" id="words-selector-list" #wordsSelectorList>
+  <div class="col-sm-6 offset-md-3" id="words-selector-list" #wordsSelectorList>
     <h4>Segna la parola:</h4>
     <ul class="list-group mb-2">
       <button
