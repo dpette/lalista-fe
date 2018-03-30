@@ -1,0 +1,24 @@
+.main-container {
+
+  @media (min-width: 992px) {
+    display: grid;
+    grid-template-areas:
+    "nav top-bar"
+    "nav content-wrapper";
+    grid-template-columns: 250px auto;
+    grid-template-rows: 56px auto;
+  }
+}
+
+.content-wrapper {
+  grid-area: content-wrapper;
+  padding-top: 1rem;
+}
+
+// app-top-bar {
+//   grid-area: top-bar;
+// }
+
+app-nav {
+  grid-area: nav;
+}

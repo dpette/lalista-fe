@@ -1,9 +1,12 @@
+import { PersonResolver } from './people/person/person.resolver';
+import { NavService } from './nav/nav.service';
 import { CoverImagesService } from './cover-images/cover-images.service';
 import { WordsService } from './words/words.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { Angular2TokenService } from 'angular2-token';
 
 
 import { PeopleService } from './people.service';
@@ -17,6 +20,11 @@ import { PointsComponent } from './points/points.component';
 import { PointsService } from './points/points.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RankingComponent } from './ranking/ranking.component';
+import { HttpModule } from '@angular/http';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { PersonComponent } from './people/person/person.component';
 
 
 @NgModule({
@@ -27,7 +35,11 @@ import { RankingComponent } from './ranking/ranking.component';
     WordsComponent,
     NewPointComponent,
     PointsComponent,
-    RankingComponent
+    RankingComponent,
+    LoginComponent,
+    RegisterComponent,
+    TopBarComponent,
+    PersonComponent
   ],
   imports: [
     AppRoutingModule,
@@ -35,8 +47,18 @@ import { RankingComponent } from './ranking/ranking.component';
     BrowserModule,
     AngularFontAwesomeModule,
     FormsModule,
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [PeopleService, WordsService, PointsService, CoverImagesService],
+  providers: [
+    PeopleService,
+    WordsService,
+    PointsService,
+    CoverImagesService,
+    NavService,
+    Angular2TokenService,
+    PersonResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

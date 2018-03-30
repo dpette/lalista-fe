@@ -1,3 +1,4 @@
+import { NavService } from './../nav/nav.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
@@ -15,10 +16,13 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   wordsSubscription: Subscription;
 
-  constructor(private wordsService: WordsService) { }
+  constructor(private wordsService: WordsService, private navService: NavService) { }
 
   ngOnInit() {
     this.words = this.wordsService.getWords();
+
+    this.navService.setTitle('Parole');
+    this.navService.setBasicLevel();
 
     this.wordsSubscription = this.wordsService.wordsUpdated.subscribe(
       (words: Word[]) => {

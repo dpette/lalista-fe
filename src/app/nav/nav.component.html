@@ -1,23 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" routerLink='/'>LALISTA</a>
-  <button class="navbar-toggler"
-    (click)="onToggleCollapse()"
-    [class.collapsed]="navbarCollapsed"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNavAltMarkup"
-    aria-controls="navbarNavAltMarkup"
-    aria-expanded="false"
-    aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" [class.show]="navbarCollapsed" id="navbarNav" navbarNav>
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact:
-        true}">Home</a>
-      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/people">Persone</a>
-      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/words">Parole</a>
-    <a class="nav-item nav-link" routerLinkActive="active" routerLink="/points">Punti</a>
-    </div>
+<nav class="navbar" [class.show]="navService.navbarCollapsed">
+  <div class="navbar-overlay" (click)="onToggleCollapse()"></div>
+  <div class="navbar-head">
+    <img src="assets/logo-material.png" alt="">
   </div>
+  <ul class="navbar-list">
+    <li>
+      <a (click)="navService.toggleNav()" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}" routerLink="/">
+        <fa name="home"></fa>Home
+      </a>
+    </li>
+    <li>
+      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/people">
+        <fa name="users"></fa>Persone
+      </a>
+    </li>
+    <li>
+      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/words">
+        <fa name="font"></fa>
+        Parole
+      </a>
+    </li>
+    <li>
+      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/points">
+        <fa name="comment"></fa>
+        Punti
+      </a>
+    </li>
+    <li *ngIf="false">
+      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/winners">
+        <fa name="trophy"></fa>
+        Winners
+      </a>
+    </li>
+  </ul>
 </nav>

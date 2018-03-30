@@ -1,3 +1,4 @@
+import { NavService } from './../nav/nav.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Person } from './person.model';
 import { PeopleService } from './../people.service';
@@ -14,10 +15,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   peopleSubscription: Subscription;
 
-  constructor(private peopleService: PeopleService) { }
+  constructor(private peopleService: PeopleService, private navService: NavService) { }
 
   ngOnInit() {
     this.people = this.peopleService.getPeople();
+
+    this.navService.setTitle('Persone');
+    this.navService.setBasicLevel();
 
     this.peopleSubscription = this.peopleService.peopleUpdated.subscribe(
       (people: Person[]) => {

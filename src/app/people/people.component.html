@@ -1,19 +1,18 @@
-<h1>Persone</h1>
 
 <form (ngSubmit)="onSubmit(name)">
   <div class="d-flex form-group">
     <input type="text" class="form-control" id="personName" #name placeholder="Aggiungi una persona a LaLista">
-    <button  class="btn btn-primary">Aggiungi</button>
+    <button  class="btn btn-primary"><fa name="plus"></fa></button>
   </div>
 </form>
 
 
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let person of people; let i = index">
+<div class="list-group">
+  <a [routerLink]="person.id" class="list-group-item list-group-item-action" *ngFor="let person of people; let i = index">
     {{person.name}}
 
     <span class="float-right">
       <button type="button" class="btn btn-link" (click)="onArchive(i)"><fa name="archive"></fa></button>
     </span>
-  </li>
-</ul>
+  </a>
+</div>

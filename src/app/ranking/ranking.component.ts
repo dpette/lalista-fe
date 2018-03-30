@@ -1,3 +1,4 @@
+import { NavService } from './../nav/nav.service';
 import { CoverImage } from './../cover-images/cover-image.model';
 import { CoverImagesService } from './../cover-images/cover-images.service';
 import { Rank } from './rank.model';
@@ -17,10 +18,16 @@ export class RankingComponent implements OnInit {
   coverImageUrl: string = null;
   coverImageFetched = false;
 
-  constructor(private peopleService: PeopleService, private coverImagesService: CoverImagesService) { }
+  constructor(
+    private peopleService: PeopleService,
+    private navService: NavService,
+    private coverImagesService: CoverImagesService) { }
 
   ngOnInit() {
     this.peopleService.getRanking();
+
+    this.navService.setTitle('Classifica');
+    this.navService.setBasicLevel();
 
     this.peopleService.rankingUpdated.subscribe(
       (ranking: Rank[]) => {
@@ -31,29 +38,19 @@ export class RankingComponent implements OnInit {
     this.coverImagesService.getActiveCoverImage();
     this.coverImagesService.activeCoverImageUpdated.subscribe(
       (activeCoverImage: CoverImage) => {
-        if (activeCoverImage.url) {
+        if (activeCoverImage && activeCoverImage.url) {
           this.coverImageUrl = activeCoverImage.url;
-          this.coverImageFetched = true;
         }
+        this.coverImageFetched = true;
       }
     );
-  }
-
-  onClickRank(i) {
-    if (i === 0) {
-      this.firstRankOpened = !this.firstRankOpened;
-    }
-  }
-
-  onDeclareWinner() {
-    this.peopleService.declareWinner();
   }
 
   onNewImage() {
     this.coverImageFormActive = !this.coverImageFormActive;
   }
 
-  onCreateImage(url: string) {
+  onCreateImage(url: HTMLInputElement) {
     this.coverImageFormActive = false;
     this.coverImagesService.createCoverImage(url.value);
   }

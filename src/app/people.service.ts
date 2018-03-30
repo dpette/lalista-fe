@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { environment } from './../environments/environment';
 import { Rank, RankJSON } from './ranking/rank.model';
 import { Subject } from 'rxjs/Subject';
@@ -20,6 +22,14 @@ export class PeopleService {
   rankingUpdated = new Subject<Rank[]>();
 
   constructor(private http: HttpClient) {
+  }
+
+  getPerson(id: number): Observable<Person> {
+    return this.http.get(this.baseUrl + id).map(
+      (personJSON: PersonJSON) => {
+        return Person.fromJSON(personJSON);
+      }
+    );
   }
 
   getPeople(archived: boolean = false): Person[] {

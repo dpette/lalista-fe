@@ -39,6 +39,7 @@ export class CoverImagesService {
           this.activeCoverImage = new CoverImage(coverImageJSON);
           this.activeCoverImageUpdated.next(this.activeCoverImage);
         }
+        this.activeCoverImageUpdated.next(null);
       }
     );
 

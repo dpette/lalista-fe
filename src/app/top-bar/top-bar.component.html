@@ -1,0 +1,19 @@
+<div class="top-bar">
+  <div class="container d-flex">
+    <button class="home-button nav-button"
+      (click)="onToggleCollapse()"
+      type="button"
+      data-toggle="collapse"
+      *ngIf="!navService.secondaryLevel"
+      aria-label="Toggle navigation">
+      <fa name="bars"></fa>
+    </button>
+    <a (click)="onBack()" class="nav-button" *ngIf="navService.secondaryLevel">
+      <fa name="arrow-left"></fa>
+    </a>
+
+    <h1 class="page-title">
+      {{ navService.pageTitle }}
+    </h1>
+  </div>
+</div>

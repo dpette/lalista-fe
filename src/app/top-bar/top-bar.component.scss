@@ -1,0 +1,33 @@
+.top-bar {
+  background-color: #007BFF;
+  height: 56px;
+
+  .nav-button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 0 0.65rem;
+    font-size: 1.5rem;
+    line-height: 56px;
+    margin: 0 0.5rem;
+    margin-left: -0.5rem;
+    cursor: pointer;
+
+    &.home-button {
+      @media (min-width: 992px) {
+        display: none;
+      }
+    }
+  }
+
+  h1 {
+    color: white;
+    line-height: 56px;
+    font-size: 1.7rem;
+    margin-bottom: 0;
+
+    @media (min-width: 992px) {
+      font-size: 1.8rem;
+    }
+  }
+}
