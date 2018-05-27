@@ -11,9 +11,6 @@ export class Rank {
   }
 
   static fromJSON(rankJSON: RankJSON): Rank {
-    return new Rank(
-      Person.fromJSON(rankJSON.person),
-      rankJSON.points_count
-    );
+    return new Rank(Person.fromJSON(rankJSON.person), rankJSON.points_count);
   }
 }

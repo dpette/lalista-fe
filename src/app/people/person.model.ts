@@ -21,7 +21,13 @@ export class Person {
     person.pointsCount = personJSON.points_count;
     person.totalPointsCount = personJSON.total_points_count;
     person.rank = personJSON.rank;
+
     return person;
+  }
+
+  incrementPoints(incrementValue: number = 1) {
+    this.pointsCount += incrementValue;
+    this.totalPointsCount += incrementValue;
   }
 
 }

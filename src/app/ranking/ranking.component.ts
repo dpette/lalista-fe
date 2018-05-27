@@ -26,7 +26,7 @@ export class RankingComponent implements OnInit {
   ngOnInit() {
     this.peopleService.getRanking();
 
-    this.navService.setTitle('Classifica');
+    this.navService.setTitle('LALISTA');
     this.navService.setBasicLevel();
 
     this.peopleService.rankingUpdated.subscribe(

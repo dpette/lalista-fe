@@ -1,3 +1,5 @@
+import { Angular2TokenService } from 'angular2-token';
+import { NavService } from './../../nav/nav.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navService: NavService, private tokenAuthSerivce: Angular2TokenService) { }
 
   ngOnInit() {
+    this.navService.setTitle('Login');
+    this.navService.setBasicLevel();
+  }
+
+  onSubmit(f) {
+    console.log('form', f.value);
+
   }
 
 }

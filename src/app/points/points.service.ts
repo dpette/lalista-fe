@@ -34,6 +34,7 @@ export class PointsService {
   }
 
   add(person: Person, word: Word) {
+    person.incrementPoints();
     this.http.post(this.baseUrl, { point: { word_id: word.id, person_id: person.id }}).subscribe(
       (pointJSON: PointJSON) => {
         this.points = [

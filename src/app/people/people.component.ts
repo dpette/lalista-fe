@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Person } from './person.model';
 import { PeopleService } from './../people.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-people',
@@ -15,7 +16,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   peopleSubscription: Subscription;
 
-  constructor(private peopleService: PeopleService, private navService: NavService) { }
+  constructor(private peopleService: PeopleService, private navService: NavService, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.people = this.peopleService.getPeople();
@@ -42,6 +43,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   onArchive(i) {
+    this.toastrService.success(this.people[i].name + ' non fa più parte de LALISTA');
     this.peopleService.archive(i);
   }
 

@@ -1,4 +1,3 @@
-import { PersonResolver } from './people/person/person.resolver';
 import { PersonComponent } from './people/person/person.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -17,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'new-point', component: NewPointComponent },
   { path: 'points', component: PointsComponent },
   { path: 'people', component: PeopleComponent },
-  { path: 'people/:id', component: PersonComponent, resolve: { person: PersonResolver }  },
+  { path: 'people/:id', component: PersonComponent },
   { path: 'words', component: WordsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }

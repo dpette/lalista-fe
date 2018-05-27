@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "~ngx-toastr/toastr-bs4-alert";
 @import url('https://fonts.googleapis.com/css?family=Oxygen:400,700');
 
 body {
@@ -15,6 +16,10 @@ body {
       color: #212529;
     }
   }
+}
+
+.toast-container .toast {
+  color: initial;
 }
 
 

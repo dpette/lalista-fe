@@ -6,6 +6,7 @@ import { NavService } from './../../nav/nav.service';
 import { Person } from './../person.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-person',
@@ -23,15 +24,22 @@ export class PersonComponent implements OnInit {
     private navService: NavService,
     private wordsService: WordsService,
     private peopleService: PeopleService,
-    private pointsService: PointsService
+    private pointsService: PointsService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
     this.navService.setSecondaryLevel();
 
-    this.route.data.subscribe(
-      (data) => {
-        this.person = data.person;
+    // this.route.data.subscribe(
+    //   (data) => {
+    //     this.person = data.person;
+    //   }
+    // );
+
+    this.peopleService.getPerson(+this.route.snapshot.params.id).subscribe(
+      (person) => {
+        this.person = person;
         this.navService.setTitle(this.person.name);
       }
     );
@@ -42,6 +50,12 @@ export class PersonComponent implements OnInit {
         this.words = words;
       }
     );
+
+    // this.peopleService.getPerson(this.person.id).subscribe(
+      // (person: Person) => {
+        // this.person = person;
+      // }
+    // );
   }
 
   onClickWord(i) {
@@ -50,10 +64,11 @@ export class PersonComponent implements OnInit {
 
   onAddPoint() {
     this.pointsService.add(this.person, this.selectedWord);
-    window.history.back();
+    this.toastrService.success('Segnato \'' + this.selectedWord.name + '\' a ' + this.person.name + '!');
   }
 
   onDeclareWinner() {
+    this.toastrService.success(this.person.name + ' ha vinto LALISTA questa settimana!!');
     this.peopleService.declareWinner();
     this.peopleService.getRanking();
     window.history.back();

@@ -1,35 +1,38 @@
-<div class="mb-3">
-  <div class="row align-items-center">
-    <h1 class="col-3 col-sm-2 rank">
-      #{{person.rank}}
-    </h1>
-    <div *ngIf="person.rank === 1" class="col-9 col-sm-4 declare-winner-wrapper">
-      <button class="btn btn-danger" (click)="onDeclareWinner()">
-        <fa name="trophy"></fa> Incorona
-      </button>
-    </div>
-    <h4 class="col-sm-6 points">
-      {{person.pointsCount}} punti
-      <small class="text-muted">({{person.totalPointsCount}} totali)</small>
-    </h4>
-  </div>
-</div>
+<div *ngIf="person">
 
-<div class="row">
-  <div class="col-sm-6 offset-md-3" id="words-selector-list" #wordsSelectorList>
-    <h4>Segna la parola:</h4>
-    <ul class="list-group mb-2">
-      <button
-        class="list-group-item list-group-item-action"
-        [class.active]="word === selectedWord"
-        (click)="onClickWord(i)"
-        *ngFor="let word of words; let i = index">
-        {{word.name}}
-      </button>
-    </ul>
-    <div class="text-right">
-      <button (click)="onAddPoint()" class="btn btn-primary">Segna!</button>
+  <div class="mb-3">
+    <div class="row align-items-center">
+      <h1 class="col-3 col-sm-2 rank">
+        #{{person.rank}}
+      </h1>
+      <div *ngIf="person.rank === 1" class="col-9 col-sm-4 declare-winner-wrapper">
+        <button class="btn btn-danger" (click)="onDeclareWinner()">
+          <fa name="trophy"></fa> Incorona
+        </button>
+      </div>
+      <h4 class="col-sm-6 points">
+        {{person.pointsCount}} punti
+        <small class="text-muted">({{person.totalPointsCount}} totali)</small>
+      </h4>
     </div>
   </div>
-</div>
 
+  <div class="row">
+    <div class="col-sm-6 offset-md-3" id="words-selector-list" #wordsSelectorList>
+      <h4>Segna la parola:</h4>
+      <ul class="list-group mb-2">
+        <button
+          class="list-group-item list-group-item-action"
+          (click)="onClickWord(i)"
+          [class.active]="word === selectedWord"
+          *ngFor="let word of words; let i = index">
+          {{word.name}}
+          <span class="float-right" *ngIf="word === selectedWord">
+            <button (click)="onAddPoint()" class="btn btn-sm btn-primary">Segna!</button>
+          </span>
+        </button>
+      </ul>
+    </div>
+  </div>
+
+</div>

@@ -1,4 +1,3 @@
-import { PersonResolver } from './people/person/person.resolver';
 import { NavService } from './nav/nav.service';
 import { CoverImagesService } from './cover-images/cover-images.service';
 import { WordsService } from './words/words.service';
@@ -7,7 +6,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { Angular2TokenService } from 'angular2-token';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PeopleService } from './people.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -48,7 +48,9 @@ import { PersonComponent } from './people/person/person.component';
     AngularFontAwesomeModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     PeopleService,
@@ -56,8 +58,7 @@ import { PersonComponent } from './people/person/person.component';
     PointsService,
     CoverImagesService,
     NavService,
-    Angular2TokenService,
-    PersonResolver
+    Angular2TokenService
   ],
   bootstrap: [AppComponent]
 })
