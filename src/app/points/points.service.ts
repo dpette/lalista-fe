@@ -57,7 +57,7 @@ export class PointsService {
 
   delete(i) {
     const point = this.points[i];
-    this.toastrService.success('Come non detto,  \'' + point.person.name + '\' non ha mai detto ' + point.word.name + '!');
+    this.toastrService.success('Come non detto,  ' + point.person.name + ' non ha detto \'' + point.word.name + '\'!');
     this.points.splice(i, 1);
 
     this.http.delete(this.baseUrl + '/' + point.id).subscribe(
