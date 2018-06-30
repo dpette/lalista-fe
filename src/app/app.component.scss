@@ -15,9 +15,12 @@
   padding-top: 1rem;
 }
 
-// app-top-bar {
-//   grid-area: top-bar;
-// }
+app-top-bar {
+  grid-area: top-bar;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
 app-nav {
   grid-area: nav;

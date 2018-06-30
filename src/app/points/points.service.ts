@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { environment } from './../../environments/environment';
 import { PeopleService } from './../people.service';
 import { Subject } from 'rxjs/Subject';
@@ -17,7 +18,11 @@ export class PointsService {
 
   pointsUpdated = new Subject<Point[]> ();
 
-  constructor(private http: HttpClient, private peopleService: PeopleService) {
+  constructor(
+    private http: HttpClient,
+    private peopleService: PeopleService,
+    private toastrService: ToastrService
+  ) {
   }
 
   getPoints() {
@@ -35,6 +40,8 @@ export class PointsService {
 
   add(person: Person, word: Word) {
     person.incrementPoints();
+    this.toastrService.success('Segnato \'' + word.name + '\' a ' + person.name + '!');
+
     this.http.post(this.baseUrl, { point: { word_id: word.id, person_id: person.id }}).subscribe(
       (pointJSON: PointJSON) => {
         this.points = [
@@ -49,7 +56,14 @@ export class PointsService {
   }
 
   delete(i) {
+    const point = this.points[i];
+    this.toastrService.success('Come non detto,  \'' + point.person.name + '\' non ha mai detto ' + point.word.name + '!');
     this.points.splice(i, 1);
+
+    this.http.delete(this.baseUrl + '/' + point.id).subscribe(
+      (pointJSON: PointJSON) => {
+      }
+    );
   }
 
 }

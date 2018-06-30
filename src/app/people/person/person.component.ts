@@ -6,7 +6,6 @@ import { NavService } from './../../nav/nav.service';
 import { Person } from './../person.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-person',
@@ -17,6 +16,7 @@ export class PersonComponent implements OnInit {
   person: Person;
   words: Word[];
   selectedWord: Word;
+  addedPoints = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +25,6 @@ export class PersonComponent implements OnInit {
     private wordsService: WordsService,
     private peopleService: PeopleService,
     private pointsService: PointsService,
-    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -59,16 +58,19 @@ export class PersonComponent implements OnInit {
   }
 
   onClickWord(i) {
-    this.selectedWord = this.words[i];
+    if (this.selectedWord !== this.words[i]) {
+      this.addedPoints = 0;
+      this.selectedWord = this.words[i];
+    }
   }
 
   onAddPoint() {
     this.pointsService.add(this.person, this.selectedWord);
-    this.toastrService.success('Segnato \'' + this.selectedWord.name + '\' a ' + this.person.name + '!');
+    console.log(this.addedPoints);
+    this.addedPoints++;
   }
 
   onDeclareWinner() {
-    this.toastrService.success(this.person.name + ' ha vinto LALISTA questa settimana!!');
     this.peopleService.declareWinner();
     this.peopleService.getRanking();
     window.history.back();

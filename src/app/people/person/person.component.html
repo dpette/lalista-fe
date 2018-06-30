@@ -27,6 +27,9 @@
           [class.active]="word === selectedWord"
           *ngFor="let word of words; let i = index">
           {{word.name}}
+          <small *ngIf="word === selectedWord && addedPoints > 0">
+            x {{addedPoints}}
+          </small>
           <span class="float-right" *ngIf="word === selectedWord">
             <button (click)="onAddPoint()" class="btn btn-sm btn-primary">Segna!</button>
           </span>

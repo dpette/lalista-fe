@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from './../environments/environment';
@@ -21,7 +22,11 @@ export class PeopleService {
   peopleUpdated = new Subject<Person[]>();
   rankingUpdated = new Subject<Rank[]>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private toastrService: ToastrService
+
+  ) {
   }
 
   getPerson(id: number): Observable<Person> {
@@ -59,7 +64,10 @@ export class PeopleService {
   }
 
   archive(i) {
-    this.http.put(this.baseUrl + this.people[i].id, {person: {archived: true}}).subscribe(
+    const person = this.people[i];
+    this.toastrService.success(person.name + ' non fa più parte de LALISTA');
+
+    this.http.put(this.baseUrl + person.id, {person: {archived: true}}).subscribe(
       (wordJSON: PersonJSON) => {
         this.people.splice(i, 1);
         this.peopleUpdated.next(this.people);
@@ -69,7 +77,10 @@ export class PeopleService {
 
 
   delete(i) {
-    this.http.delete(this.baseUrl + this.people[i].id).subscribe(
+    const person = this.people[i];
+    this.toastrService.success(person.name + ' ha vinto LALISTA questa settimana!!');
+
+    this.http.delete(this.baseUrl + person.id).subscribe(
       (deletedPerson: Person) => {
         this.people.splice(i, 1);
         this.peopleUpdated.next(this.people);
