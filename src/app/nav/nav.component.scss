@@ -24,7 +24,9 @@
     left: 0;
 
     .navbar-overlay {
-      display: block;
+      background-color: rgba(0,0,0,0.5);
+      left: 250px;
+      pointer-events: auto;
     }
   }
 
@@ -46,9 +48,11 @@
     position: fixed;
     top: 0;
     right: 0;
-    left: 250px;
     bottom: 0;
-    display: none;
+    left: 0;
+    //display: none;
+    transition: all 0.3s ease;
+    pointer-events: none;
   }
 
   .navbar-list {
