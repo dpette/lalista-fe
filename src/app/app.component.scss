@@ -12,14 +12,25 @@
 
 .content-wrapper {
   grid-area: content-wrapper;
-  padding-top: 1rem;
+  padding-top: 4.5rem;
+
+  @media (min-width: 992px) {
+    padding-top: 1rem;
+  }
 }
 
 app-top-bar {
   grid-area: top-bar;
-  position: sticky;
+  z-index: 100;
+  position: fixed;
   top: 0;
   z-index: 100;
+  right: 0;
+  left: 0;
+
+  @media (min-width: 992px) {
+    left: 250px;
+  }
 }
 
 app-nav {
