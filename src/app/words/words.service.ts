@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
@@ -15,7 +16,10 @@ export class WordsService {
   words = [
   ];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private toastrService: ToastrService
+  ) { }
 
   getWords(): Word[] {
     this.http.get(this.baseUrl).subscribe(
@@ -38,6 +42,8 @@ export class WordsService {
           ...this.words
         ];
         this.wordsUpdated.next(this.words);
+      }, (error) => {
+        this.toastrService.error('Non è possibile aggiungere \'' + word.name + '\'');
       }
     );
   }

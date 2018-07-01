@@ -1,5 +1,7 @@
 {
  "name": "LaLista",
+ "short_name": "LaLista",
+ "description": "LaLista è il consolidato gioco ufficiale di Uqido",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
@@ -39,6 +41,6 @@
   }
  ],
  "start_url": "index.html",
-  "display": "standalone",
-  "orientation": "landscape"
+ "display": "fullscreen",
+ "orientation": "landscape"
 }

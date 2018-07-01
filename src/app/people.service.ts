@@ -59,6 +59,8 @@ export class PeopleService {
           ...this.people
         ];
         this.peopleUpdated.next(this.people);
+      }, (error) => {
+        this.toastrService.error('Non è possibile aggiungere ' + person.name);
       }
     );
   }
