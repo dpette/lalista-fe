@@ -18,6 +18,8 @@ export class PointsService {
 
   pointsUpdated = new Subject<Point[]> ();
 
+  chartData: any;
+
   constructor(
     private http: HttpClient,
     private peopleService: PeopleService,
@@ -65,5 +67,16 @@ export class PointsService {
       }
     );
   }
+
+  getChartData() {
+    this.http.get(this.baseUrl + '/chart_data').subscribe(
+      (chartData: any) => {
+        this.chartData = chartData;
+      }
+    );
+
+    return this.chartData;
+  }
+
 
 }

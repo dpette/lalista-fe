@@ -5,29 +5,35 @@
   </div>
   <ul class="navbar-list">
     <li>
-      <a (click)="navService.toggleNav()" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}" routerLink="/">
+      <a (click)="navService.closeNav()" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}" routerLink="/">
         <fa name="home"></fa>Home
       </a>
     </li>
     <li>
-      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/people">
+      <a (click)="navService.closeNav()" routerLinkActive="active" routerLink="/people">
         <fa name="users"></fa>Persone
       </a>
     </li>
     <li>
-      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/words">
+      <a (click)="navService.closeNav()" routerLinkActive="active" routerLink="/words">
         <fa name="font"></fa>
         Parole
       </a>
     </li>
     <li>
-      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/points">
+      <a (click)="navService.closeNav()" routerLinkActive="active" routerLink="/points">
         <fa name="comment"></fa>
         Punti
       </a>
     </li>
     <li *ngIf="false">
-      <a (click)="navService.toggleNav()" routerLinkActive="active" routerLink="/winners">
+      <a (click)="navService.closeNav()" routerLinkActive="active" routerLink="/stats">
+        <fa name="line-chart"></fa>
+        Statistiche
+      </a>
+    </li>
+    <li *ngIf="false">
+      <a (click)="navService.closeNav()" routerLinkActive="active" routerLink="/winners">
         <fa name="trophy"></fa>
         Winners
       </a>

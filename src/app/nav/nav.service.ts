@@ -13,6 +13,10 @@ export class NavService {
     this.navbarCollapsed = !this.navbarCollapsed;
   }
 
+  closeNav() {
+    this.navbarCollapsed = false;
+  }
+
   setTitle(title) {
     this.pageTitle = title;
   }

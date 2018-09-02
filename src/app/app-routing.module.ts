@@ -1,3 +1,4 @@
+import { StatsComponent } from './stats/stats.component';
 import { PersonComponent } from './people/person/person.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'people', component: PeopleComponent },
   { path: 'people/:id', component: PersonComponent },
   { path: 'words', component: WordsComponent },
+  { path: 'stats', component: StatsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

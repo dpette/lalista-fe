@@ -25,6 +25,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { PersonComponent } from './people/person/person.component';
+import { StatsComponent } from './stats/stats.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { PersonComponent } from './people/person/person.component';
     LoginComponent,
     RegisterComponent,
     TopBarComponent,
-    PersonComponent
+    PersonComponent,
+    StatsComponent
   ],
   imports: [
     AppRoutingModule,
